@@ -33,6 +33,7 @@ export interface ITextTheme {
   headingThree: IFontAttributes;
   headingFour: IFontAttributes;
   normal: IFontAttributes;
+  normalLight: IFontAttributes;
   label: IFontAttributes;
   labelTitle: IFontAttributes;
   labelSubtitle: IFontAttributes;
@@ -121,15 +122,15 @@ const SemanticColors: ISemanticColors = {
 const BrandColors: IBrandColors = {
   primary: '#ac3fb0',
   primaryDisabled: `rgba(53, 130, 63, ${lightOpacity})`,
-  secondary: '#593592',
-  secondaryDisabled: `rgba(53, 130, 63, ${heavyOpacity})`,
+  secondary: '#25159D',
+  secondaryDisabled: `rgba(37, 21, 157, ${heavyOpacity})`,
   primaryLight: `rgba(53, 130, 63, ${lightOpacity})`,
   primaryBackground: '#FBF4FB',
   secondaryBackground: '#ba4bff',
   link: SemanticColors.focus,
   text: GrayscaleColors.white,
   headerText: GrayscaleColors.white,
-  buttonText: GrayscaleColors.white,
+  buttonText: GrayscaleColors.black,
   tabBarInactive: GrayscaleColors.white,
 };
 
@@ -194,6 +195,11 @@ export const TextTheme: ITextTheme = {
     fontSize: 18,
     fontFamily: FontFamily.regular,
     color: ColorPallet.brand.text,
+  },
+  normalLight: {
+    fontSize: 18,
+    fontFamily: FontFamily.regular,
+    color: GrayscaleColors.black,
   },
   label: {
     fontSize: 14,
@@ -264,31 +270,43 @@ export const Buttons = StyleSheet.create({
     backgroundColor: ColorPallet.brand.primary,
   },
   primary: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: ColorPallet.brand.primary,
+  },
+  primaryDisabled: {
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 16,
     borderRadius: 4,
     backgroundColor: ColorPallet.brand.primary,
   },
-  primaryDisabled: {
-    padding: 16,
-    borderRadius: 4,
-    backgroundColor: ColorPallet.brand.primaryDisabled,
-  },
   primaryText: {
     ...TextTheme.normal,
+    alignItems: 'center',
+    justifyContent: 'center',
     color: ColorPallet.brand.buttonText,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   primaryTextDisabled: {
     ...TextTheme.normal,
+    alignItems: 'center',
+    justifyContent: 'center',
     fontWeight: 'bold',
     textAlign: 'center',
   },
   secondary: {
+    ...TextTheme.normalLight,
     padding: 16,
-    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
     borderWidth: 2,
-    borderColor: ColorPallet.brand.primary,
+    backgroundColor: ColorPallet.grayscale.white,
+    borderColor: ColorPallet.brand.secondary,
   },
   secondaryDisabled: {
     padding: 16,

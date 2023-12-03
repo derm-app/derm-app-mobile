@@ -21,7 +21,7 @@ type Props = TextInputProps & {
   error: boolean;
 };
 
-const HEIGHT = 64;
+const HEIGHT = 54;
 
 export const DCHTextInput: FC<Props> = ({
   style,
@@ -59,7 +59,7 @@ export const DCHTextInput: FC<Props> = ({
     return {
       transform: [{ translateX: offset.value }],
       paddingTop: withTiming(
-        interpolate(placeholderProgress.value, [0, 1], [0, 11]),
+        interpolate(placeholderProgress.value, [0, 1], [0, 20]),
         { duration: 300 }
       ),
       borderColor: withTiming(
@@ -95,7 +95,7 @@ export const DCHTextInput: FC<Props> = ({
           style={[
             styles.placeholder,
             animatedPlaceholderStyle,
-            { fontFamily: 'regular', fontSize: 10 },
+            { fontFamily: 'regular' },
           ]}
         >
           {placeholder}
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'rgba(255,255,255,0.8)',
   },
   textInput: {
     height: HEIGHT,

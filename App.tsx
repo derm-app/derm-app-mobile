@@ -5,11 +5,17 @@ import { theme } from './src/theme/theme';
 import { useFonts } from 'expo-font';
 export default function App() {
   const [loading] = useFonts({
-    light: require('./assets/fonts/Oswald-Light.ttf'),
-    regular: require('./assets/fonts/Oswald-Regular.ttf'),
-    medium: require('./assets/fonts/Oswald-Medium.ttf'),
-    semiBold: require('./assets/fonts/Oswald-SemiBold.ttf'),
-    bold: require('./assets/fonts/Oswald-Bold.ttf'),
+    logo: require('./assets/fonts/Ephesis-Regular.ttf'),
+    light: require('./assets/fonts/Roboto-Light.ttf'),
+    lightItalic: require('./assets/fonts/Roboto-LightItalic.ttf'),
+    regular: require('./assets/fonts/Roboto-Regular.ttf'),
+    regularItalic: require('./assets/fonts/Roboto-Italic.ttf'),
+    medium: require('./assets/fonts/Roboto-Medium.ttf'),
+    mediumItalic: require('./assets/fonts/Roboto-MediumItalic.ttf'),
+    bold: require('./assets/fonts/Roboto-Bold.ttf'),
+    boldItalic: require('./assets/fonts/Roboto-BoldItalic.ttf'),
+    black: require('./assets/fonts/Roboto-Black.ttf'),
+    blackItalic: require('./assets/fonts/Roboto-BlackItalic.ttf'),
   });
 
   if (!loading) {
