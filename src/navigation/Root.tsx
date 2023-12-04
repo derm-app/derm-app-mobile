@@ -69,7 +69,7 @@ export const RootNavigation = () => {
     );
   };
 
-  const isUserLoggedIn = false;
+  const isUserLoggedIn = true;
   const isTermsAccepted = true;
   const onBoardingCompleted = true;
 

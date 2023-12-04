@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 export const SplashScreen = () => {
   const { reset, navigate } = useNavigation();
 
-  const isUserLoggedIn = false;
+  const isUserLoggedIn = true;
   const isTermsAccepted = true;
   const onBoardingCompleted = true;
 
