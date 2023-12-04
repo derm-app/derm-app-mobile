@@ -14,16 +14,21 @@ import { SignIn } from '../screens/Auth/signIn';
 import { SignUp } from '../screens/Auth/signUp';
 import { useTheme } from '../hooks/useTheme';
 import { Tabs } from './Tabs';
+import { SplashScreen } from '../screens/Splash';
 
 export const RootNavigation = () => {
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   const { DefaultScreenOptions } = useTheme();
 
   const onboardingStack = () => {
     const Stack = createNativeStackNavigator<OnboardingStackParamList>();
 
     return (
-      <Stack.Navigator screenOptions={DefaultScreenOptions}>
-        {/* <AuthStack.Screen name='splash' component={SplashScreen} */}
+      <Stack.Navigator
+        screenOptions={DefaultScreenOptions}
+        initialRouteName={RootStackScreens.Splash}
+      >
+        <Stack.Screen name={RootStackScreens.Splash} component={SplashScreen} />
         <Stack.Screen
           name={OnboardingStackScreens.Onboarding}
           component={Onboarding}
@@ -33,10 +38,12 @@ export const RootNavigation = () => {
   };
 
   const main = () => {
-    const Stack = createNativeStackNavigator<RootStackParamList>();
     return (
-      <Stack.Navigator screenOptions={{ ...DefaultScreenOptions }}>
-        {/* <AuthStack.Screen name='splash' component={SplashScreen} */}
+      <Stack.Navigator
+        screenOptions={{ ...DefaultScreenOptions }}
+        initialRouteName={RootStackScreens.Splash}
+      >
+        <Stack.Screen name={RootStackScreens.Splash} component={SplashScreen} />
         <Stack.Screen name={RootStackScreens.Tabs} component={Tabs} />
       </Stack.Navigator>
     );
@@ -47,11 +54,14 @@ export const RootNavigation = () => {
 
     return (
       <>
-        <StatusBar style='dark' />
         <AuthStack.Navigator
           screenOptions={{ ...DefaultScreenOptions, animation: 'fade' }}
+          initialRouteName={RootStackScreens.Splash}
         >
-          {/* <AuthStack.Screen name='splash' component={SplashScreen} */}
+          <Stack.Screen
+            name={RootStackScreens.Splash}
+            component={SplashScreen}
+          />
           <AuthStack.Screen name={AuthStackScreens.SignIn} component={SignIn} />
           <AuthStack.Screen name={AuthStackScreens.SignUp} component={SignUp} />
         </AuthStack.Navigator>
