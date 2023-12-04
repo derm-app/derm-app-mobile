@@ -8,6 +8,7 @@ export enum TabScreens {
   Profile = 'Profile',
   Settings = 'Settings',
   History = 'History',
+  SkinAnalysis = 'Skin',
 }
 
 export enum AuthStackScreens {

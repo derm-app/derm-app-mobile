@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { ColorPallet } from '../theme/theme';
 import { History } from '../screens/history';
+import SkinAnalysisScreen from '../screens/SkinAnalysis/skinAnalysisScreen';
 
 export const Tabs = () => {
   const TabBar = ({
@@ -112,7 +113,7 @@ export const Tabs = () => {
                     <Text style={styles.tabLabel}>{TabScreens.Settings}</Text>
                   </View>
                 ) : (
-                  label === TabScreens.History && (
+                  label === TabScreens.History ? (
                     <View style={styles.buttonContainer}>
                       <Ionicons
                         name={isFocused ? 'ios-time' : 'ios-time-outline'}
@@ -121,8 +122,18 @@ export const Tabs = () => {
                       />
                       <Text style={styles.tabLabel}>{TabScreens.History}</Text>
                     </View>
+                  ) : (
+                    <View style={styles.buttonContainer}>
+                      <Ionicons
+                        name={isFocused ? 'ios-time' : 'ios-time-outline'}
+                        size={24}
+                        color='#fff'
+                      />
+                      <Text style={styles.tabLabel}>{TabScreens.SkinAnalysis}</Text>
+                    </View>
                   )
-                )}
+                )
+                }
               </TouchableOpacity>
             </View>
           );
@@ -137,11 +148,17 @@ export const Tabs = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          borderTopWidth: 0,
+          elevation: 0,
+          height: 80,
+        },
       }}
       tabBar={(props) => <TabBar {...props} />}
     >
       <Tab.Screen name={TabScreens.Home} component={Home} />
       <Tab.Screen name={TabScreens.Profile} component={Profile} />
+      <Tab.Screen name={TabScreens.SkinAnalysis} component={SkinAnalysisScreen} />
       <Tab.Screen name={TabScreens.Settings} component={Settings} />
       <Tab.Screen name={TabScreens.History} component={History} />
     </Tab.Navigator>
