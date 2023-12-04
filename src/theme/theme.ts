@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-
+import { FigmaColors } from '../FigmaTokens.json';
 export interface IFontAttributes {
   fontFamily?: string;
   fontSize: number;
@@ -120,15 +120,15 @@ const SemanticColors: ISemanticColors = {
 };
 
 const BrandColors: IBrandColors = {
-  primary: '#ac3fb0',
-  primaryDisabled: `rgba(53, 130, 63, ${lightOpacity})`,
-  secondary: '#25159D',
+  primary: FigmaColors.primary,
+  primaryDisabled: FigmaColors.primaryLight,
+  secondary: FigmaColors.secondary,
   secondaryDisabled: `rgba(37, 21, 157, ${heavyOpacity})`,
-  primaryLight: `rgba(53, 130, 63, ${lightOpacity})`,
-  primaryBackground: '#FBF4FB',
-  secondaryBackground: '#ba4bff',
-  link: SemanticColors.focus,
-  text: GrayscaleColors.white,
+  primaryLight: FigmaColors.primaryLight,
+  primaryBackground: FigmaColors.primaryBackground,
+  secondaryBackground: FigmaColors.secondaryBackground,
+  link: FigmaColors.blueBlue7P,
+  text: FigmaColors.secondary,
   headerText: GrayscaleColors.white,
   buttonText: GrayscaleColors.black,
   tabBarInactive: GrayscaleColors.white,
@@ -194,7 +194,7 @@ export const TextTheme: ITextTheme = {
   normal: {
     fontSize: 18,
     fontFamily: FontFamily.regular,
-    color: ColorPallet.brand.text,
+    color: GrayscaleColors.white,
   },
   normalLight: {
     fontSize: 18,
@@ -270,6 +270,7 @@ export const Buttons = StyleSheet.create({
     backgroundColor: ColorPallet.brand.primary,
   },
   primary: {
+    ...TextTheme.normal,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 16,
@@ -369,6 +370,7 @@ export const TabTheme = {
 
 export const DefaultScreenOptions = {
   headerShown: false,
+  backgroundColor: 'transparent',
 };
 
 export interface ITheme {

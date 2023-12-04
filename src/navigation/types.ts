@@ -3,9 +3,10 @@ export enum RootStackScreens {
 }
 
 export enum TabScreens {
-  Home = 'Home Screen',
-  Profile = 'Profile Screen',
-  Settings = 'Settings Screen',
+  Home = 'Home',
+  Profile = 'Profile',
+  Settings = 'Settings',
+  History = 'History',
 }
 
 export enum AuthStackScreens {
@@ -37,4 +38,5 @@ export type TabStackParamList = {
   [TabScreens.Home]: undefined;
   [TabScreens.Profile]: undefined;
   [TabScreens.Settings]: undefined;
+  [TabScreens.History]: undefined;
 };

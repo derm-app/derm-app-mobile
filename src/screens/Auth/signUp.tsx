@@ -23,13 +23,15 @@ export const SignUp = () => {
   const { navigate } = useNavigation<AuthStackParamList>();
   return (
     <ImageBackground
-      source={require('../../../assets/makeUpBg.png')}
+      source={require('../../../assets/bgprimary.jpeg')}
       style={[
         styles.backgroundImage,
         { backgroundColor: ColorPallet.brand.primaryBackground },
       ]}
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.85)' }}
+      >
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.container}
@@ -46,22 +48,22 @@ export const SignUp = () => {
                   Kayıt Ol
                 </Text>
                 <DCHTextInput
-                  placeholder='Email'
+                  placeholder='isim'
                   error={false}
                   style={[styles.input, TextTheme.caption]}
                 />
                 <DCHTextInput
-                  placeholder='Parola'
+                  placeholder='e-mail'
                   error={false}
                   style={[styles.input, TextTheme.caption]}
                 />
                 <DCHTextInput
-                  placeholder='Email'
+                  placeholder='parola'
                   error={false}
                   style={[styles.input, TextTheme.caption]}
                 />
                 <DCHTextInput
-                  placeholder='Parola'
+                  placeholder='parola tekrar'
                   error={false}
                   style={[styles.input, TextTheme.caption]}
                 />
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    marginTop: 10,
+    marginBottom: 10,
   },
   button: {
     marginHorizontal: 20,

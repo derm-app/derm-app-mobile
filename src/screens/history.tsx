@@ -2,13 +2,13 @@ import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../hooks/useTheme';
 
-export const Profile = () => {
+export const History = () => {
   const { ColorPallet } = useTheme();
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: ColorPallet.brand.primaryBackground }}
+      style={{ flex: 1, backgroundColor: ColorPallet.brand.primaryDisabled }}
     >
-      <Text>{'Profile :)'}</Text>
+      <Text>History</Text>
     </SafeAreaView>
   );
 };

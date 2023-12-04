@@ -95,7 +95,7 @@ export const DCHTextInput: FC<Props> = ({
           style={[
             styles.placeholder,
             animatedPlaceholderStyle,
-            { fontFamily: 'bold', letterSpacing: 1, opacity: 0.5 },
+            { fontFamily: 'bold', letterSpacing: 1.5, opacity: 0.5 },
           ]}
         >
           {placeholder}

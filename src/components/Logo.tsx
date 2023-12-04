@@ -9,8 +9,9 @@ export const Logo = () => {
       style={{
         fontFamily: 'logo',
         fontSize: 64,
-        color: ColorPallet.brand.primary,
-        paddingLeft: 20,
+        color: ColorPallet.brand.secondary,
+        marginBottom: 20,
+        textAlign: 'center',
       }}
     >
       Derm Care

@@ -23,13 +23,12 @@ export const SignIn = () => {
   const { navigate } = useNavigation<AuthStackParamList>();
   return (
     <ImageBackground
-      source={require('../../../assets/makeUpBg.png')}
-      style={[
-        styles.backgroundImage,
-        { backgroundColor: ColorPallet.brand.primaryBackground },
-      ]}
+      source={require('../../../assets/bgprimary.jpeg')}
+      style={[styles.backgroundImage]}
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.85)' }}
+      >
         <TouchableNativeFeedback
           onPress={() => {
             Keyboard.dismiss();
@@ -44,12 +43,12 @@ export const SignIn = () => {
                 <Logo />
                 <Text style={TextTheme.headingOne}>Giriş Yap</Text>
                 <DCHTextInput
-                  placeholder='Email'
+                  placeholder='e-mail'
                   error={false}
                   style={[styles.input, TextTheme.caption]}
                 />
                 <DCHTextInput
-                  placeholder='Parola'
+                  placeholder='parola'
                   error={false}
                   style={[styles.input, TextTheme.caption]}
                 />

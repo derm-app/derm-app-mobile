@@ -1,13 +1,17 @@
 import { Text, View } from 'react-native';
 import { useTheme } from '../hooks/useTheme';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const Settings = () => {
   const { ColorPallet } = useTheme();
   return (
-    <View
-      style={{ backgroundColor: ColorPallet.brand.primaryDisabled, flex: 1 }}
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: ColorPallet.brand.secondaryBackground,
+      }}
     >
       <Text>{'Settings :)'}</Text>
-    </View>
+    </SafeAreaView>
   );
 };
