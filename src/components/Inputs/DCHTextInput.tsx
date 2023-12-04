@@ -14,7 +14,7 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import { useTheme } from '../hooks/useTheme';
+import { useTheme } from '../../hooks/useTheme';
 
 type Props = TextInputProps & {
   style?: StyleProp<TextStyle>;
@@ -95,7 +95,7 @@ export const DCHTextInput: FC<Props> = ({
           style={[
             styles.placeholder,
             animatedPlaceholderStyle,
-            { fontFamily: 'regular' },
+            { fontFamily: 'bold', letterSpacing: 1, opacity: 0.5 },
           ]}
         >
           {placeholder}

@@ -3,6 +3,7 @@ import { RootNavigation } from './src/navigation/Root';
 import { ThemeProvider } from './src/contexts/theme';
 import { theme } from './src/theme/theme';
 import { useFonts } from 'expo-font';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default function App() {
   const [loading] = useFonts({
     logo: require('./assets/fonts/Ephesis-Regular.ttf'),
@@ -24,7 +25,9 @@ export default function App() {
     return (
       <ThemeProvider value={theme}>
         <NavigationContainer>
-          <RootNavigation />
+          <SafeAreaProvider>
+            <RootNavigation />
+          </SafeAreaProvider>
         </NavigationContainer>
       </ThemeProvider>
     );

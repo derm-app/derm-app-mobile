@@ -10,11 +10,13 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native';
-import { DCHTextInput } from '../../components/DCHTextInput';
+import { DCHTextInput } from '../../components/Inputs/DCHTextInput';
 import { useTheme } from '../../hooks/useTheme';
 import { useNavigation } from '@react-navigation/native';
 import { AuthStackParamList, AuthStackScreens } from '../../navigation/types';
 import { Buttons } from '../../theme/theme';
+import { Logo } from '../../components/Logo';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const SignUp = () => {
   const { ColorPallet, TextTheme } = useTheme();
@@ -27,59 +29,64 @@ export const SignUp = () => {
         { backgroundColor: ColorPallet.brand.primaryBackground },
       ]}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        <TouchableNativeFeedback
-          onPress={() => {
-            Keyboard.dismiss();
-          }}
+      <SafeAreaView style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.container}
         >
-          <View style={{ justifyContent: 'space-between', flex: 1 }}>
-            <View style={styles.overlay}>
-              <Text style={[styles.title, TextTheme.headingOne]}>Kayıt Ol</Text>
-              <DCHTextInput
-                placeholder='Email'
-                error={false}
-                style={[styles.input, TextTheme.caption]}
-              />
-              <DCHTextInput
-                placeholder='Parola'
-                error={false}
-                style={[styles.input, TextTheme.caption]}
-              />
-              <DCHTextInput
-                placeholder='Email'
-                error={false}
-                style={[styles.input, TextTheme.caption]}
-              />
-              <DCHTextInput
-                placeholder='Parola'
-                error={false}
-                style={[styles.input, TextTheme.caption]}
-              />
+          <TouchableNativeFeedback
+            onPress={() => {
+              Keyboard.dismiss();
+            }}
+          >
+            <View style={{ justifyContent: 'space-between', flex: 1 }}>
+              <View style={styles.overlay}>
+                <Logo />
+                <Text style={[styles.title, TextTheme.headingOne]}>
+                  Kayıt Ol
+                </Text>
+                <DCHTextInput
+                  placeholder='Email'
+                  error={false}
+                  style={[styles.input, TextTheme.caption]}
+                />
+                <DCHTextInput
+                  placeholder='Parola'
+                  error={false}
+                  style={[styles.input, TextTheme.caption]}
+                />
+                <DCHTextInput
+                  placeholder='Email'
+                  error={false}
+                  style={[styles.input, TextTheme.caption]}
+                />
+                <DCHTextInput
+                  placeholder='Parola'
+                  error={false}
+                  style={[styles.input, TextTheme.caption]}
+                />
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={[Buttons.primary, styles.button]}
+              >
+                <Text style={[TextTheme.normal, { letterSpacing: 0.8 }]}>
+                  Kayıt Ol
+                </Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={[Buttons.primary, styles.button]}
-            >
-              <Text style={[TextTheme.normal, { letterSpacing: 0.8 }]}>
-                Kayıt Ol
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </TouchableNativeFeedback>
-      </KeyboardAvoidingView>
-      <TouchableOpacity
-        onPress={() => {
-          navigate(AuthStackScreens.SignIn);
-        }}
-        activeOpacity={0.8}
-        style={[Buttons.secondary, styles.button, { marginBottom: 32 }]}
-      >
-        <Text style={[TextTheme.normalLight]}>Zaten hesabım var</Text>
-      </TouchableOpacity>
+          </TouchableNativeFeedback>
+        </KeyboardAvoidingView>
+        <TouchableOpacity
+          onPress={() => {
+            navigate(AuthStackScreens.SignIn);
+          }}
+          activeOpacity={0.8}
+          style={[Buttons.secondary, styles.button, { marginBottom: 32 }]}
+        >
+          <Text style={[TextTheme.normalLight]}>Zaten hesabım var</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -96,7 +103,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   overlay: {
-    marginTop: 100,
     paddingHorizontal: 20,
     justifyContent: 'space-between',
     flexDirection: 'column',

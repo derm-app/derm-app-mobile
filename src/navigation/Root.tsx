@@ -1,55 +1,73 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from '../screens/home';
+
 import {
   AuthStackParamList,
   AuthStackScreens,
+  OnboardingStackParamList,
+  OnboardingStackScreens,
   RootStackParamList,
   RootStackScreens,
 } from './types';
 import { SignIn } from '../screens/Auth/signIn';
 import { Tabs } from './Tabs';
 import { SignUp } from '../screens/Auth/signUp';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '../hooks/useTheme';
 import { StatusBar } from 'expo-status-bar';
+import { Onboarding } from '../screens/Onboarding/onboarding';
 
 export const RootNavigation = () => {
-  const RootStack = createNativeStackNavigator<RootStackParamList>();
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   const { DefaultScreenOptions } = useTheme();
 
-  const Root = () => {
+  const main = () => {
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'left']}>
-        <RootStack.Navigator screenOptions={{ ...DefaultScreenOptions }}>
-          <RootStack.Screen name={RootStackScreens.Tabs} component={Tabs} />
-        </RootStack.Navigator>
-      </SafeAreaView>
+      <Stack.Navigator screenOptions={{ ...DefaultScreenOptions }}>
+        <Stack.Screen name={RootStackScreens.Tabs} component={Tabs} />
+      </Stack.Navigator>
     );
   };
 
-  const AuthNavigation = () => {
+  const authNavigation = () => {
     const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'left']}>
+      <>
         <StatusBar style='dark' />
-        <AuthStack.Navigator
-          screenOptions={{ ...DefaultScreenOptions }}
-          initialRouteName={AuthStackScreens.SignIn}
-        >
+        <AuthStack.Navigator screenOptions={DefaultScreenOptions}>
+          {/* <AuthStack.Screen name='splash' component={SplashScreen} */}
           <AuthStack.Screen name={AuthStackScreens.SignIn} component={SignIn} />
           <AuthStack.Screen name={AuthStackScreens.SignUp} component={SignUp} />
         </AuthStack.Navigator>
-      </SafeAreaView>
+      </>
     );
   };
 
-  if (false) {
-    return <Root />;
-  } else {
-    return <AuthNavigation />;
-  }
+  const onboardingStack = () => {
+    const Stack = createNativeStackNavigator<OnboardingStackParamList>();
+
+    return (
+      <Stack.Navigator screenOptions={DefaultScreenOptions}>
+        <Stack.Screen
+          name={OnboardingStackScreens.Onboarding}
+          component={Onboarding}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  const isUserLoggedIn = false;
+  const isTermsAccepted = false;
+
+  const returnStack = () => {
+    return isUserLoggedIn
+      ? isTermsAccepted
+        ? main()
+        : onboardingStack()
+      : authNavigation();
+  };
+
+  return returnStack();
 };
 
 const styles = StyleSheet.create({

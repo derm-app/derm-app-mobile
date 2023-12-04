@@ -10,11 +10,13 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native';
-import { DCHTextInput } from '../../components/DCHTextInput';
+import { DCHTextInput } from '../../components/Inputs/DCHTextInput';
 import { useTheme } from '../../hooks/useTheme';
 import { useNavigation } from '@react-navigation/native';
 import { AuthStackParamList, AuthStackScreens } from '../../navigation/types';
 import { Buttons } from '../../theme/theme';
+import { Logo } from '../../components/Logo';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const SignIn = () => {
   const { ColorPallet, TextTheme } = useTheme();
@@ -27,53 +29,54 @@ export const SignIn = () => {
         { backgroundColor: ColorPallet.brand.primaryBackground },
       ]}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
+      <SafeAreaView style={{ flex: 1 }}>
         <TouchableNativeFeedback
           onPress={() => {
             Keyboard.dismiss();
           }}
         >
-          <View style={{ justifyContent: 'space-between', flex: 1 }}>
-            <View style={styles.overlay}>
-              <Text style={[styles.title, TextTheme.headingOne]}>
-                Giriş Yap
-              </Text>
-              <DCHTextInput
-                placeholder='Email'
-                error={false}
-                style={[styles.input, TextTheme.caption]}
-              />
-              <DCHTextInput
-                placeholder='Parola'
-                error={false}
-                style={[styles.input, TextTheme.caption]}
-              />
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+          >
+            <View style={{ justifyContent: 'space-between', flex: 1 }}>
+              <View style={styles.overlay}>
+                <Logo />
+                <Text style={TextTheme.headingOne}>Giriş Yap</Text>
+                <DCHTextInput
+                  placeholder='Email'
+                  error={false}
+                  style={[styles.input, TextTheme.caption]}
+                />
+                <DCHTextInput
+                  placeholder='Parola'
+                  error={false}
+                  style={[styles.input, TextTheme.caption]}
+                />
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={[Buttons.primary, styles.button]}
+              >
+                <Text style={[TextTheme.normal, { letterSpacing: 0.8 }]}>
+                  Giriş Yap
+                </Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={[Buttons.primary, styles.button]}
-            >
-              <Text style={[TextTheme.normal, { letterSpacing: 0.8 }]}>
-                Giriş Yap
-              </Text>
-            </TouchableOpacity>
-          </View>
+          </KeyboardAvoidingView>
         </TouchableNativeFeedback>
-      </KeyboardAvoidingView>
-      <TouchableOpacity
-        onPress={() => {
-          navigate(AuthStackScreens.SignUp);
-        }}
-        activeOpacity={0.8}
-        style={[Buttons.secondary, styles.button, { marginBottom: 32 }]}
-      >
-        <Text style={[TextTheme.normalLight, { letterSpacing: 0.8 }]}>
-          Kayıt ol
-        </Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigate(AuthStackScreens.SignUp);
+          }}
+          activeOpacity={0.8}
+          style={[Buttons.secondary, styles.button, { marginBottom: 32 }]}
+        >
+          <Text style={[TextTheme.normalLight, { letterSpacing: 0.8 }]}>
+            Kayıt ol
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -87,16 +90,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
-    justifyContent: 'space-between',
   },
   overlay: {
-    marginTop: 100,
     paddingHorizontal: 20,
     justifyContent: 'space-between',
     flexDirection: 'column',
-  },
-  title: {
-    marginBottom: 10,
   },
   input: {
     marginTop: 10,

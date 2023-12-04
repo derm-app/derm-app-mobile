@@ -13,6 +13,11 @@ export enum AuthStackScreens {
   SignUp = 'Sign Up',
 }
 
+export enum OnboardingStackScreens {
+  Onboarding = 'Onboarding',
+  Terms = 'Terms',
+}
+
 export type RootStackParamList = {
   [RootStackScreens.Tabs]: undefined;
 };
@@ -21,6 +26,11 @@ export type AuthStackParamList = {
   [AuthStackScreens.SignIn]: undefined;
   [AuthStackScreens.SignUp]: undefined;
   navigate: (screen: AuthStackScreens) => void;
+};
+
+export type OnboardingStackParamList = {
+  [OnboardingStackScreens.Onboarding]: undefined;
+  [OnboardingStackScreens.Terms]: undefined;
 };
 
 export type TabStackParamList = {
