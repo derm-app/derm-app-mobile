@@ -4,6 +4,8 @@ import { ThemeProvider } from './src/contexts/theme';
 import { theme } from './src/theme/theme';
 import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SplashScreen } from './src/screens/Splash';
+import { StatusBar } from 'expo-status-bar';
 export default function App() {
   const [loading] = useFonts({
     logo: require('./assets/fonts/Ephesis-Regular.ttf'),
@@ -26,6 +28,7 @@ export default function App() {
       <ThemeProvider value={theme}>
         <NavigationContainer>
           <SafeAreaProvider>
+            <StatusBar style='auto' />
             <RootNavigation />
           </SafeAreaProvider>
         </NavigationContainer>

@@ -9,6 +9,7 @@ export const Logo = () => {
       style={{
         fontFamily: 'logo',
         fontSize: 64,
+        padding: 20,
         color: ColorPallet.brand.secondary,
         marginBottom: 20,
         textAlign: 'center',

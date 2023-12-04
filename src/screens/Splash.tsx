@@ -1,31 +1,67 @@
 // SplashScreen.tsx
 import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import {
+  AuthStackScreens,
+  OnboardingStackScreens,
+  RootStackScreens,
+} from '../navigation/types';
 import { Logo } from '../components/Logo';
+import { ColorPallet } from '../theme/theme';
+import { useNavigation } from '@react-navigation/native';
 
-const SplashScreen: React.FC = () => {
-  // You can add any initialization logic here if needed
+export const SplashScreen = () => {
+  const { reset, navigate } = useNavigation();
+
+  const isUserLoggedIn = false;
+  const isTermsAccepted = true;
+  const onBoardingCompleted = true;
+
+  const navigateTo = ():
+    | RootStackScreens
+    | AuthStackScreens
+    | OnboardingStackScreens => {
+    if (onBoardingCompleted && isTermsAccepted && isUserLoggedIn) {
+      return RootStackScreens.Tabs;
+    }
+    if (onBoardingCompleted && isTermsAccepted && !isUserLoggedIn) {
+      return AuthStackScreens.SignIn;
+    }
+    if (!onBoardingCompleted && !isTermsAccepted && !isUserLoggedIn) {
+      return OnboardingStackScreens.Onboarding;
+    }
+
+    return RootStackScreens.Splash;
+  };
 
   useEffect(() => {
-    // Simulate some asynchronous tasks, e.g., fetching data or loading resources
-    const fetchData = async () => {
-      // Add your initialization logic here
-
-      // Simulate a delay (e.g., 2000 milliseconds) for demonstration purposes
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Navigate to the next screen (replace 'RootStackScreens.Tabs' with your desired screen)
-      // You may use navigation.navigate to navigate to the next screen
-    };
-
-    fetchData();
+    setTimeout(() => {
+      const screen = navigateTo() as
+        | RootStackScreens
+        | AuthStackScreens
+        | OnboardingStackScreens;
+      if (screen) {
+        navigate(screen as never);
+      }
+    }, 1000);
   }, []);
 
   return (
-    <View>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: ColorPallet.brand.secondaryBackground },
+      ]}
+    >
       <Logo />
     </View>
   );
 };
 
-export default SplashScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
