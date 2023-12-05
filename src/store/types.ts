@@ -1,4 +1,3 @@
-// storeTypes.ts
 export interface UserState {
   isUserLoggedIn: boolean;
   isTermsAccepted: boolean;

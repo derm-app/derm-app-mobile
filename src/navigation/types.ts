@@ -45,4 +45,5 @@ export type TabStackParamList = {
   [TabScreens.Profile]: undefined;
   [TabScreens.Settings]: undefined;
   [TabScreens.History]: undefined;
+  [TabScreens.SkinAnalysis]: undefined;
 };

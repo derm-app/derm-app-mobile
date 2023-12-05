@@ -207,7 +207,7 @@ export const TextTheme: ITextTheme = {
     color: ColorPallet.brand.text,
   },
   labelTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: FontFamily.bold,
     color: ColorPallet.brand.text,
   },
