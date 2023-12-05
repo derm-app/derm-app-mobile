@@ -14,18 +14,21 @@ import { SignIn } from '../screens/Auth/signIn';
 import { SignUp } from '../screens/Auth/signUp';
 import { useTheme } from '../hooks/useTheme';
 import { Tabs } from './Tabs';
-import { SplashScreen } from '../screens/Splash';
+import { SplashScreen } from '../screens/Splash/Splash';
+import useUserStore from '../store/useUserStore';
 
 export const RootNavigation = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const { DefaultScreenOptions } = useTheme();
+  const { isUserLoggedIn, isTermsAccepted, onBoardingCompleted } =
+    useUserStore();
 
   const onboardingStack = () => {
     const Stack = createNativeStackNavigator<OnboardingStackParamList>();
 
     return (
       <Stack.Navigator
-        screenOptions={DefaultScreenOptions}
+        screenOptions={{ ...DefaultScreenOptions }}
         initialRouteName={RootStackScreens.Splash}
       >
         <Stack.Screen name={RootStackScreens.Splash} component={SplashScreen} />
@@ -40,7 +43,9 @@ export const RootNavigation = () => {
   const main = () => {
     return (
       <Stack.Navigator
-        screenOptions={{ ...DefaultScreenOptions }}
+        screenOptions={{
+          ...DefaultScreenOptions,
+        }}
         initialRouteName={RootStackScreens.Splash}
       >
         <Stack.Screen name={RootStackScreens.Splash} component={SplashScreen} />
@@ -68,10 +73,6 @@ export const RootNavigation = () => {
       </>
     );
   };
-
-  const isUserLoggedIn = true;
-  const isTermsAccepted = true;
-  const onBoardingCompleted = true;
 
   const returnStack = () => {
     return onBoardingCompleted && isTermsAccepted

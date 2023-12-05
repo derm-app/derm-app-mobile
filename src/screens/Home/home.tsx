@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
-import { useTheme } from '../hooks/useTheme';
+import { useTheme } from '../../hooks/useTheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const Home = () => {
