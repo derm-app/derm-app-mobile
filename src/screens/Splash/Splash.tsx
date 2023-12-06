@@ -7,41 +7,35 @@ import {
 } from '../../navigation/types';
 import { Logo } from '../../components/Logo';
 import { ColorPallet } from '../../theme/theme';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
 import useUserStore from '../../store/useUserStore';
+import { CommonActions } from '@react-navigation/native';
 
 export const SplashScreen = () => {
-  const { navigate } = useNavigation();
+  const { dispatch } = useNavigation();
   const { isUserLoggedIn, isTermsAccepted, onBoardingCompleted } =
     useUserStore();
 
-  const navigateTo = ():
-    | RootStackScreens
-    | AuthStackScreens
-    | OnboardingStackScreens => {
-    if (onBoardingCompleted && isTermsAccepted && isUserLoggedIn) {
-      return RootStackScreens.Tabs;
-    }
-    if (onBoardingCompleted && isTermsAccepted && !isUserLoggedIn) {
-      return AuthStackScreens.SignIn;
-    }
-    if (onBoardingCompleted && !isTermsAccepted && !isUserLoggedIn) {
-      return OnboardingStackScreens.Onboarding;
-    }
-    if (!onBoardingCompleted && !isTermsAccepted && !isUserLoggedIn) {
-      return OnboardingStackScreens.Onboarding;
-    }
-    return RootStackScreens.Splash;
-  };
-
   useEffect(() => {
     setTimeout(() => {
-      const screen = navigateTo() as
-        | RootStackScreens
-        | AuthStackScreens
-        | OnboardingStackScreens;
-      if (screen) {
-        navigate(screen as never);
+      if (!isUserLoggedIn || !isTermsAccepted) {
+        const routeName = !onBoardingCompleted
+          ? OnboardingStackScreens.Onboarding
+          : AuthStackScreens.SignIn;
+
+        dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: routeName }],
+          })
+        );
+      } else {
+        dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: RootStackScreens.Tabs }],
+          })
+        );
       }
     }, 1000);
   }, []);

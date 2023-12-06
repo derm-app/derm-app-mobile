@@ -104,6 +104,15 @@ export const mediumOpacity = 0.5;
 export const lightOpacity = 0.35;
 export const zeroOpacity = 0.0;
 
+export const spacing = {
+  xxs: 4,
+  xs: 8,
+  s: 16,
+  m: 24,
+  l: 32,
+  xl: 40,
+};
+
 const GrayscaleColors: IGrayscaleColors = {
   black: '#000000',
   darkGrey: '#313132',
@@ -130,7 +139,7 @@ const BrandColors: IBrandColors = {
   link: FigmaColors.blueBlue7P,
   text: FigmaColors.secondary,
   headerText: GrayscaleColors.white,
-  buttonText: GrayscaleColors.black,
+  buttonText: GrayscaleColors.white,
   tabBarInactive: GrayscaleColors.white,
 };
 
@@ -263,26 +272,27 @@ export const Inputs: IInputs = StyleSheet.create({
   },
 });
 
-export const Buttons = StyleSheet.create({
-  critical: {
-    padding: 16,
-    borderRadius: 4,
-    backgroundColor: ColorPallet.brand.primary,
-  },
-  primary: {
+export type Buttons = {
+  critical: any;
+  primary: any;
+  primaryDisabled: any;
+  secondary: any;
+  secondaryDisabled: any;
+};
+
+export type ButtonText = {
+  criticalText: any;
+  primaryText: any;
+  secondaryText: any;
+  secondaryTextDisabled: any;
+};
+
+export const ButtonText: ButtonText = {
+  criticalText: {
     ...TextTheme.normal,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
-    borderRadius: 16,
-    backgroundColor: ColorPallet.brand.primary,
-  },
-  primaryDisabled: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
-    borderRadius: 4,
-    backgroundColor: ColorPallet.brand.primary,
+    fontWeight: 'bold',
+    color: ColorPallet.brand.buttonText,
+    textAlign: 'center',
   },
   primaryText: {
     ...TextTheme.normal,
@@ -291,29 +301,6 @@ export const Buttons = StyleSheet.create({
     color: ColorPallet.brand.buttonText,
     fontWeight: 'bold',
     textAlign: 'center',
-  },
-  primaryTextDisabled: {
-    ...TextTheme.normal,
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  secondary: {
-    ...TextTheme.normalLight,
-    padding: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
-    borderWidth: 2,
-    backgroundColor: ColorPallet.grayscale.white,
-    borderColor: ColorPallet.brand.secondary,
-  },
-  secondaryDisabled: {
-    padding: 16,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: ColorPallet.brand.secondaryDisabled,
   },
   secondaryText: {
     ...TextTheme.normal,
@@ -327,7 +314,53 @@ export const Buttons = StyleSheet.create({
     color: ColorPallet.brand.secondaryDisabled,
     textAlign: 'center',
   },
-});
+};
+
+export const Buttons: Buttons = {
+  critical: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.m,
+    borderRadius: 16,
+    backgroundColor: ColorPallet.semantic.error,
+  },
+  primary: {
+    ...TextTheme.normal,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.m,
+    borderRadius: 16,
+    backgroundColor: ColorPallet.brand.primary,
+  },
+  primaryDisabled: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.m,
+    borderRadius: 16,
+    backgroundColor: ColorPallet.brand.primaryDisabled,
+  },
+  secondary: {
+    ...TextTheme.normalLight,
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.m,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    borderWidth: 2,
+    backgroundColor: ColorPallet.grayscale.white,
+    borderColor: ColorPallet.brand.secondary,
+  },
+  secondaryDisabled: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.m,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: ColorPallet.brand.secondaryDisabled,
+  },
+};
 
 export const TabTheme = {
   tabBarStyle: {
@@ -377,9 +410,10 @@ export interface ITheme {
   ColorPallet: IColorPallet;
   TextTheme: ITextTheme;
   Inputs: IInputs;
-  Buttons: any;
+  Buttons: Buttons;
   heavyOpacity: any;
   DefaultScreenOptions: any;
+  ButtonText: ButtonText;
 }
 
 export const theme: ITheme = {
@@ -389,4 +423,5 @@ export const theme: ITheme = {
   Buttons,
   heavyOpacity,
   DefaultScreenOptions,
+  ButtonText,
 };

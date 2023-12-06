@@ -3,9 +3,9 @@ import { StoreState, StoreActions } from './types';
 
 const useUserStore = create<StoreState & StoreActions>((set) => ({
   // Initial state
-  isUserLoggedIn: true,
-  isTermsAccepted: true,
-  onBoardingCompleted: true,
+  isUserLoggedIn: false,
+  isTermsAccepted: false,
+  onBoardingCompleted: false,
 
   // Actions
   setLoginStatus: (status: boolean) => set({ isUserLoggedIn: status }),

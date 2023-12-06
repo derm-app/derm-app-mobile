@@ -17,9 +17,12 @@ import { AuthStackParamList, AuthStackScreens } from '../../navigation/types';
 import { Buttons } from '../../theme/theme';
 import { Logo } from '../../components/Logo';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import useUserStore from '../../store/useUserStore';
 
 export const SignIn = () => {
-  const { ColorPallet, TextTheme } = useTheme();
+  const { TextTheme } = useTheme();
+  const { isUserLoggedIn } = useUserStore();
+
   const { navigate } = useNavigation<AuthStackParamList>();
   return (
     <ImageBackground
@@ -56,6 +59,9 @@ export const SignIn = () => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={[Buttons.primary, styles.button]}
+                onPress={() => {
+                  useUserStore.setState({ isUserLoggedIn: true });
+                }}
               >
                 <Text style={[TextTheme.normal, { letterSpacing: 0.8 }]}>
                   Giriş Yap
