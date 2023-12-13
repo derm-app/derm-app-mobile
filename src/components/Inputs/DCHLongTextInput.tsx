@@ -1,22 +1,42 @@
 import React, { useState } from 'react';
 import { TextInput, View, Text, StyleSheet } from 'react-native';
+import { useTheme } from '../../hooks/useTheme';
 
 type DCHLongTextInputProps = {
   title: string;
+  dark: boolean;
   placeholder: string;
   onChangeText: (text: string) => void;
 };
 
 export const DCHLongTextInput = (props: DCHLongTextInputProps) => {
   const [value, setValue] = useState('');
+  const { TextTheme, ColorPallet } = useTheme();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{props.title}</Text>
+      <Text
+        style={[
+          styles.title,
+          props.dark ? TextTheme.normalLight : TextTheme.normal,
+        ]}
+      >
+        {props.title}
+      </Text>
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          {
+            backgroundColor: props.dark
+              ? ColorPallet.grayscale.darkGrey
+              : ColorPallet.grayscale.white,
+          },
+        ]}
         multiline={true}
         numberOfLines={4}
+        placeholderTextColor={
+          props.dark ? ColorPallet.grayscale.white : ColorPallet.brand.text
+        }
         placeholder={props.placeholder}
         onChangeText={(text) => setValue(text)}
         value={value}
@@ -37,11 +57,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   input: {
-    backgroundColor: '#F5F5F5',
     padding: 8,
-    textAlignVertical: 'top',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#CACACA',
+    textAlignVertical: 'center',
+    borderRadius: 12,
   },
 });

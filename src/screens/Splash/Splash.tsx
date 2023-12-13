@@ -37,7 +37,7 @@ export const SplashScreen = () => {
           })
         );
       }
-    }, 1000);
+    }, 500);
   }, []);
 
   return (

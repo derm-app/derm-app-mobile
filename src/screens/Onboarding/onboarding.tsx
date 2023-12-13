@@ -18,6 +18,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { DCHLongTextInput } from '../../components/Inputs/DCHLongTextInput';
 import { Button } from '../../components/buttons/Button';
 import { Buttons } from '../../theme/theme';
+import { DCHText } from '../../components/Text';
+import { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import { DCHView } from '../../components/Views/DCHView';
 
 const { width } = Dimensions.get('window');
 
@@ -100,8 +103,6 @@ const ButtonFooter = ({
   selectedOptions: string[];
   inputValues: string[];
 }) => {
-  const { TextTheme } = useTheme();
-
   const handleBack = () => {
     if (pageIndex > 0) {
       setPageIndex((prevIndex) => prevIndex - 1);
@@ -110,6 +111,15 @@ const ButtonFooter = ({
         animated: true,
       });
     }
+  };
+
+  const handleSkip = () => {
+    // go to end
+    setPageIndex(skinCareQuestions.length - 1);
+    flatListRef.current?.scrollToOffset({
+      offset: width * (skinCareQuestions.length - 1),
+      animated: true,
+    });
   };
 
   const handleNext = () => {
@@ -128,7 +138,6 @@ const ButtonFooter = ({
   };
 
   const handleFinish = () => {
-    // Burada seçilen şıkları, input değerlerini ve diğer bilgileri kullanarak istediğiniz işlemleri yapabilirsiniz
     useUserStore.setState({
       onBoardingCompleted: true,
       isTermsAccepted: true,
@@ -139,10 +148,11 @@ const ButtonFooter = ({
     <View style={styles.buttonContainer}>
       <Button
         title='Geri'
-        type={Buttons.secondary}
+        type={Buttons.critical}
         onPress={handleBack}
         disabled={pageIndex === 0}
       />
+      <Button title='Geç' type={Buttons.secondary} onPress={handleSkip} />
       {pageIndex === skinCareQuestions.length - 1 ? (
         <Button
           type={Buttons.primary}
@@ -178,12 +188,21 @@ export const Onboarding = () => {
     <SafeAreaView style={styles.container} edges={['right', 'left', 'bottom']}>
       <View style={styles.innerContainer}>
         <View style={styles.questionContainer}>
-          <Text style={[styles.questionText, TextTheme.headingOne]}>
-            {item.title}
-          </Text>
-          <Text style={[styles.descriptionText, TextTheme.labelSubtitle]}>
-            {item.description}
-          </Text>
+          <View>
+            <DCHText
+              animated
+              entering={FadeInUp.duration(1200)}
+              style={[styles.questionText, TextTheme.headingOne]}
+            >
+              {item.title}
+            </DCHText>
+            <DCHText
+              style={[styles.descriptionText, TextTheme.labelSubtitle]}
+              animated
+            >
+              {item.description}
+            </DCHText>
+          </View>
           {item.options && (
             <View style={styles.optionsContainer}>
               {item.options.map((option, optionIndex) => (
@@ -223,6 +242,7 @@ export const Onboarding = () => {
           )}
           {item.inputEnabled && (
             <DCHLongTextInput
+              dark={false}
               placeholder={item.placeholder || 'Açıklayınız'}
               title={'Varsa lütfen açıklayınız'}
               onChangeText={(text) => {
@@ -253,16 +273,18 @@ export const Onboarding = () => {
         onPress={() => Keyboard.dismiss()}
         style={{ flex: 1 }}
       >
-        <FlatList
-          ref={flatListRef}
-          data={skinCareQuestions}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          scrollEnabled={false}
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-        />
+        <DCHView type={'primary'} blurLevel={5}>
+          <FlatList
+            ref={flatListRef}
+            data={skinCareQuestions}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            horizontal
+            scrollEnabled={false}
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+          />
+        </DCHView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

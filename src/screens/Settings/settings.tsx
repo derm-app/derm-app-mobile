@@ -1,17 +1,13 @@
 import { Text, View } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { DCHView } from '../../components/Views/DCHView';
 
 export const Settings = () => {
   const { ColorPallet } = useTheme();
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: ColorPallet.brand.secondaryBackground,
-      }}
-    >
+    <DCHView type='secondary' blurLevel={5}>
       <Text>{'Settings :)'}</Text>
-    </SafeAreaView>
+    </DCHView>
   );
 };

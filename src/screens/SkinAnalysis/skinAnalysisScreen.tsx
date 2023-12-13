@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LineChart } from 'react-native-chart-kit'; // Assuming you're using this library for the graph
+import { DCHView } from '../../components/Views/DCHView';
 
-const SkinAnalysisScreen = () => {
+export const SkinAnalysisScreen = () => {
   const { ColorPallet, TextTheme, Buttons } = useTheme();
   const skinType = 'Oily';
   const problems = ['Acne', 'Blackheads', 'Visible pores'];
@@ -23,18 +24,10 @@ const SkinAnalysisScreen = () => {
   ];
 
   return (
-    <SafeAreaView
-      edges={['top']}
-      style={[
-        {
-          backgroundColor: ColorPallet.brand.primaryBackground,
-          flex: 1,
-        },
-      ]}
-    >
+    <DCHView type='primary' blurLevel={5} edges={['top']}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 150, paddingHorizontal: 16 }}
+        contentContainerStyle={{ paddingBottom: 120, paddingHorizontal: 16 }}
       >
         <View style={styles.section}>
           <Text style={TextTheme.headingOne}>Skin Analysis</Text>
@@ -96,7 +89,7 @@ const SkinAnalysisScreen = () => {
           <Text style={TextTheme.normal}>Reanalyze Skin</Text>
         </TouchableOpacity>
       </ScrollView>
-    </SafeAreaView>
+    </DCHView>
   );
 };
 
@@ -115,12 +108,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
-
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.1,
     elevation: 3,
   },
 });
-
-export default SkinAnalysisScreen;

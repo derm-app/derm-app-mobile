@@ -29,16 +29,25 @@ export interface IInputs {
 
 export interface ITextTheme {
   headingOne: IFontAttributes;
+  headingOneLight: IFontAttributes;
   headingTwo: IFontAttributes;
+  headingTwoLight: IFontAttributes;
   headingThree: IFontAttributes;
+  headingThreeLight: IFontAttributes;
   headingFour: IFontAttributes;
+  headingFourLight: IFontAttributes;
   normal: IFontAttributes;
   normalLight: IFontAttributes;
   label: IFontAttributes;
+  labelLight: IFontAttributes;
   labelTitle: IFontAttributes;
+  labelTitleLight: IFontAttributes;
   labelSubtitle: IFontAttributes;
+  labelSubtitleLight: IFontAttributes;
   labelText: IFontAttributes;
+  labelTextLight: IFontAttributes;
   caption: IFontAttributes;
+  captionLight: IFontAttributes;
 }
 
 export interface IBrandColors {
@@ -51,6 +60,7 @@ export interface IBrandColors {
   secondaryBackground: string;
   link: string;
   text: string;
+  textSecondary: string;
   headerText: string;
   buttonText: string;
   tabBarInactive: string;
@@ -137,7 +147,8 @@ const BrandColors: IBrandColors = {
   primaryBackground: FigmaColors.primaryBackground,
   secondaryBackground: FigmaColors.secondaryBackground,
   link: FigmaColors.blueBlue7P,
-  text: FigmaColors.secondary,
+  textSecondary: FigmaColors.secondary,
+  text: FigmaColors.white100P,
   headerText: GrayscaleColors.white,
   buttonText: GrayscaleColors.white,
   tabBarInactive: GrayscaleColors.white,
@@ -183,57 +194,102 @@ export const TextTheme: ITextTheme = {
   headingOne: {
     fontSize: 38,
     fontFamily: FontFamily.bold,
-    color: ColorPallet.brand.primary,
+    color: ColorPallet.brand.text,
+  },
+  headingOneLight: {
+    fontSize: 38,
+    fontFamily: FontFamily.bold,
+    color: ColorPallet.brand.textSecondary,
   },
   headingTwo: {
     fontSize: 32,
     fontFamily: FontFamily.bold,
     color: ColorPallet.brand.text,
   },
+  headingTwoLight: {
+    fontSize: 32,
+    fontFamily: FontFamily.bold,
+    color: ColorPallet.brand.textSecondary,
+  },
   headingThree: {
     fontSize: 26,
     fontFamily: FontFamily.bold,
     color: ColorPallet.brand.text,
+  },
+  headingThreeLight: {
+    fontSize: 26,
+    fontFamily: FontFamily.bold,
+    color: ColorPallet.brand.textSecondary,
   },
   headingFour: {
     fontSize: 21,
     fontFamily: FontFamily.bold,
     color: ColorPallet.brand.text,
   },
+  headingFourLight: {
+    fontSize: 21,
+    fontFamily: FontFamily.bold,
+    color: ColorPallet.brand.textSecondary,
+  },
   normal: {
     fontSize: 18,
     fontFamily: FontFamily.regular,
-    color: GrayscaleColors.white,
+    color: ColorPallet.brand.text,
   },
   normalLight: {
     fontSize: 18,
     fontFamily: FontFamily.regular,
-    color: GrayscaleColors.black,
+    color: ColorPallet.brand.textSecondary,
   },
   label: {
     fontSize: 14,
     fontFamily: FontFamily.regular,
     color: ColorPallet.brand.text,
   },
+  labelLight: {
+    fontSize: 14,
+    fontFamily: FontFamily.regular,
+    color: ColorPallet.brand.textSecondary,
+  },
   labelTitle: {
     fontSize: 18,
     fontFamily: FontFamily.bold,
     color: ColorPallet.brand.text,
+  },
+  labelTitleLight: {
+    fontSize: 18,
+    fontFamily: FontFamily.bold,
+    color: ColorPallet.brand.textSecondary,
   },
   labelSubtitle: {
     fontSize: 14,
     fontFamily: FontFamily.bold,
     color: ColorPallet.brand.text,
   },
+  labelSubtitleLight: {
+    fontSize: 14,
+    fontFamily: FontFamily.bold,
+    color: ColorPallet.brand.textSecondary,
+  },
   labelText: {
     fontSize: 10,
     fontFamily: FontFamily.bold,
     color: ColorPallet.brand.text,
   },
+  labelTextLight: {
+    fontSize: 10,
+    fontFamily: FontFamily.bold,
+    color: ColorPallet.brand.textSecondary,
+  },
   caption: {
     fontSize: 14,
     fontFamily: FontFamily.regular,
     color: ColorPallet.brand.text,
+  },
+  captionLight: {
+    fontSize: 14,
+    fontFamily: FontFamily.regular,
+    color: ColorPallet.brand.textSecondary,
   },
 };
 

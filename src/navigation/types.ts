@@ -7,8 +7,8 @@ export enum TabScreens {
   Home = 'Home',
   Profile = 'Profile',
   Settings = 'Settings',
-  History = 'History',
   SkinAnalysis = 'Skin',
+  Camera = 'Camera',
 }
 
 export enum AuthStackScreens {
@@ -42,8 +42,9 @@ export type OnboardingStackParamList = {
 export type TabStackParamList = {
   [RootStackScreens.Splash]: undefined;
   [TabScreens.Home]: undefined;
-  [TabScreens.Profile]: undefined;
-  [TabScreens.Settings]: undefined;
-  [TabScreens.History]: undefined;
   [TabScreens.SkinAnalysis]: undefined;
+  [TabScreens.Camera]: undefined;
+  [TabScreens.Settings]: undefined;
+  [TabScreens.Profile]: undefined;
+  navigate: (screen: TabScreens) => void;
 };
