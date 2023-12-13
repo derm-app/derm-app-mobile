@@ -6,7 +6,7 @@ export const History = () => {
   const { ColorPallet } = useTheme();
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: ColorPallet.brand.primaryDisabled }}
+      style={{ flex: 1, backgroundColor: ColorPallet.brand.primaryBackground }}
     >
       <Text>History</Text>
     </SafeAreaView>
