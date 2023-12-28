@@ -1,273 +1,154 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   FlatList,
   Dimensions,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   StyleSheet,
-  Keyboard,
   Alert,
+  TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Keyboard,
   Platform,
 } from 'react-native';
-import useUserStore from '../../store/useUserStore';
-import { useTheme } from '../../hooks/useTheme';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { DCHLongTextInput } from '../../components/Inputs/DCHLongTextInput';
 import { Button } from '../../components/buttons/Button';
 import { Buttons } from '../../theme/theme';
 import { DCHText } from '../../components/Text';
-import { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import { FadeInUp } from 'react-native-reanimated';
 import { DCHView } from '../../components/Views/DCHView';
+import { useOnboarding } from '../../api/onboarding';
+import { useTheme } from '../../hooks/useTheme';
+import useUserStore from '../../store/useUserStore';
 
 const { width } = Dimensions.get('window');
 
 type Question = {
-  title: string;
-  description: string;
-  options?: string[];
-  inputEnabled?: boolean;
-  placeholder?: string;
+  _id: string;
+  questionTitle: string;
+  question: string;
+  answers: string[];
 };
 
-type RenderItemType = {
-  item: Question;
-  index: number;
-};
+export const Onboarding = () => {
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { TextTheme, ColorPallet } = useTheme();
+  const { getOnboardingQuestions } = useOnboarding();
 
-const skinCareQuestions: Question[] = [
-  {
-    title: 'Cilt Tipi',
-    description:
-      'Cildiniz yağlı mı, kuru mu, karma mı, hassas mı yoksa normal mi?',
-    options: ['Yağlı', 'Kuru', 'Karma', 'Hassas', 'Normal'],
-  },
-  {
-    title: 'Cilt Sorunları',
-    description:
-      'Akne, lekeler, kızarıklık, kuruluk veya diğer cilt sorunlarıyla ilgili endişeleriniz var mı?',
-    options: ['Evet', 'Hayır'],
-  },
-  {
-    title: 'Günlük Alışkanlıklar',
-    description:
-      'Makyaj kullanıyor musunuz? Kullanıyorsanız, makyaj temizleme alışkanlıklarınız neler?',
-    options: ['Evet', 'Hayır'],
-    inputEnabled: true,
-    placeholder: 'Makyaj temizleme alışkanlıklarınızı yazın',
-  },
-  {
-    title: 'Mevsimsel Etkiler',
-    description:
-      'Cildiniz mevsimsel değişikliklere nasıl tepki verir? Kışın ve yazın cilt bakım rutininizde değişiklik yapar mısınız?',
-    options: ['Evet', 'Hayır'],
-    inputEnabled: true,
-    placeholder: 'Varsa mevsimsel etkileri yazınız',
-  },
-  {
-    title: 'Ürün Toleransı',
-    description:
-      'Daha önce kullanmış olduğunuz cilt bakım ürünleri içinde alerjik reaksiyon veya tahrişe neden olan bir ürün var mı?',
-    options: ['Evet', 'Hayır'],
-    inputEnabled: true,
-    placeholder: 'Varsa alerjik reaksiyona neden olan ürünleri yazınız',
-  },
-  {
-    title: 'Yaş ve Genel Sağlık Durumu',
-    description:
-      'Cilt bakım rutininizi belirlerken yaşınız ve genel sağlık durumunuzun dikkate alınması önemlidir. Özellikle hamilelik veya bazı sağlık sorunları, kullanabileceğiniz ürünleri etkileyebilir.',
-    options: ['Genç', 'Orta Yaşlı', 'Yaşlı'],
-  },
-  {
-    title: 'Cilt Bakım Hedefleri',
-    description:
-      'Cilt bakımı ile ilgili belirli hedefleriniz nelerdir? Örneğin, yaşlanma karşıtı, nemlendirme, leke azaltma vb.',
-    options: ['Yaşlanma Karşıtı', 'Nemlendirme', 'Leke Azaltma', 'Diğer'],
-    inputEnabled: true,
-    placeholder: 'Cilt bakım hedeflerinizi yazın',
-  },
-];
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const data = await getOnboardingQuestions();
+        setQuestions(data);
+      } catch (error) {
+        console.error('Error fetching onboarding questions:', error);
+        // Handle error as needed
+      }
+    };
 
-const ButtonFooter = ({
-  pageIndex,
-  setPageIndex,
-  flatListRef,
-  selectedOptions,
-  inputValues,
-}: {
-  pageIndex: number;
-  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  flatListRef: React.RefObject<FlatList>;
-  selectedOptions: string[];
-  inputValues: string[];
-}) => {
-  const handleBack = () => {
-    if (pageIndex > 0) {
-      setPageIndex((prevIndex) => prevIndex - 1);
-      flatListRef.current?.scrollToOffset({
-        offset: width * (pageIndex - 1),
-        animated: true,
-      });
-    }
-  };
-
-  const handleSkip = () => {
-    // go to end
-    setPageIndex(skinCareQuestions.length - 1);
-    flatListRef.current?.scrollToOffset({
-      offset: width * (skinCareQuestions.length - 1),
-      animated: true,
-    });
-  };
+    fetchQuestions();
+  }, []);
 
   const handleNext = () => {
-    if (selectedOptions[pageIndex]) {
-      setPageIndex((prevIndex) => prevIndex + 1);
-      flatListRef.current?.scrollToOffset({
-        offset: width * (pageIndex + 1),
-        animated: true,
-      });
+    if (selectedOption !== null) {
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setSelectedOption(null); // Clear selected option for the next question
+      } else {
+        useUserStore.setState({
+          onBoardingCompleted: true,
+          isTermsAccepted: true,
+        });
+      }
     } else {
       Alert.alert(
-        'Lütfen bir seçim yapınız',
-        'Bu soruyu geçmek için şıklardan birini seçmelisiniz.'
+        'Please select an option',
+        'You must select an option to proceed.'
       );
     }
   };
 
-  const handleFinish = () => {
-    useUserStore.setState({
-      onBoardingCompleted: true,
-      isTermsAccepted: true,
-    });
+  const handleBack = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setSelectedOption(null); // Clear selected option for the previous question
+    }
   };
 
-  return (
-    <View style={styles.buttonContainer}>
-      <Button
-        title='Geri'
-        type={Buttons.critical}
-        onPress={handleBack}
-        disabled={pageIndex === 0}
-      />
-      <Button title='Geç' type={Buttons.secondary} onPress={handleSkip} />
-      {pageIndex === skinCareQuestions.length - 1 ? (
-        <Button
-          type={Buttons.primary}
-          title='Bitir'
-          onPress={handleFinish}
-          disabled={!selectedOptions[pageIndex]}
-        />
-      ) : (
-        <Button
-          type={Buttons.secondary}
-          title='Devam'
-          onPress={handleNext}
-          disabled={
-            pageIndex === skinCareQuestions.length - 1 &&
-            !selectedOptions[pageIndex]
-          }
-        />
-      )}
-    </View>
-  );
-};
-
-export const Onboarding = () => {
-  const { TextTheme, ColorPallet } = useTheme();
-  const [pageIndex, setPageIndex] = useState(0);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [inputValues, setInputValues] = useState<string[]>(
-    Array(skinCareQuestions.length).fill('')
-  );
-  const flatListRef = useRef<FlatList>(null);
-
-  const renderItem = ({ item, index }: RenderItemType) => (
-    <SafeAreaView style={styles.container} edges={['right', 'left', 'bottom']}>
+  const renderItem = ({ item }: { item: Question; index: number }) => (
+    <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.questionContainer}>
-          <View>
-            <DCHText
-              animated
-              entering={FadeInUp.duration(1200)}
-              style={[styles.questionText, TextTheme.headingOne]}
-            >
-              {item.title}
-            </DCHText>
-            <DCHText
-              style={[styles.descriptionText, TextTheme.labelSubtitle]}
-              animated
-            >
-              {item.description}
-            </DCHText>
-          </View>
-          {item.options && (
-            <View style={styles.optionsContainer}>
-              {item.options.map((option, optionIndex) => (
-                <TouchableOpacity
-                  key={optionIndex}
+          <DCHText style={[TextTheme.headingOneLight, { textAlign: 'center' }]}>
+            {item.questionTitle}
+          </DCHText>
+          <DCHText
+            style={[
+              TextTheme.normalLight,
+              { textAlign: 'center', marginVertical: 24 },
+            ]}
+          >
+            {item.question}
+          </DCHText>
+          <View style={styles.optionsContainer}>
+            {item.answers.map((option, optionIndex) => (
+              <TouchableOpacity
+                key={optionIndex}
+                style={[
+                  styles.optionButton,
+                  {
+                    backgroundColor:
+                      selectedOption === option
+                        ? ColorPallet.brand.primary
+                        : ColorPallet.grayscale.white,
+                  },
+                ]}
+                onPress={() => setSelectedOption(option)}
+              >
+                <DCHText
                   style={[
-                    styles.optionButton,
+                    TextTheme.normalLight,
+                    styles.optionText,
                     {
-                      backgroundColor:
-                        selectedOptions[index] === option
-                          ? ColorPallet.brand.secondary
-                          : ColorPallet.grayscale.lightGrey,
+                      color:
+                        selectedOption === option
+                          ? ColorPallet.grayscale.white
+                          : ColorPallet.brand.primary,
                     },
                   ]}
-                  onPress={() => {
-                    const newSelectedOptions = [...selectedOptions];
-                    newSelectedOptions[index] = option;
-                    setSelectedOptions(newSelectedOptions);
-                  }}
                 >
-                  <Text
-                    style={[
-                      styles.optionText,
-                      {
-                        color:
-                          selectedOptions[index] === option
-                            ? ColorPallet.grayscale.white
-                            : ColorPallet.brand.text,
-                      },
-                    ]}
-                  >
-                    {option}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
-          {item.inputEnabled && (
-            <DCHLongTextInput
-              dark={false}
-              placeholder={item.placeholder || 'Açıklayınız'}
-              title={'Varsa lütfen açıklayınız'}
-              onChangeText={(text) => {
-                const newInputValues = [...inputValues];
-                newInputValues[index] = text;
-                setInputValues(newInputValues);
-              }}
-            />
-          )}
+                  {option}
+                </DCHText>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-        <ButtonFooter
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
-          flatListRef={flatListRef}
-          selectedOptions={selectedOptions}
-          inputValues={inputValues}
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            type={Buttons.secondary}
+            title='Back'
+            onPress={handleBack}
+            disabled={currentQuestionIndex === 0}
+          />
+          <Button
+            type={Buttons.secondary}
+            title='Next'
+            onPress={handleNext}
+            disabled={selectedOption === null}
+          />
+        </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
+      style={{ flex: 1, marginBottom: 24 }}
     >
       <TouchableWithoutFeedback
         onPress={() => Keyboard.dismiss()}
@@ -275,12 +156,15 @@ export const Onboarding = () => {
       >
         <DCHView type={'primary'} blurLevel={5}>
           <FlatList
-            ref={flatListRef}
-            data={skinCareQuestions}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
+            data={questions}
+            renderItem={({ item, index }) => {
+              if (index === currentQuestionIndex) {
+                return renderItem({ item, index });
+              }
+              return null;
+            }}
+            keyExtractor={(item) => item._id}
             horizontal
-            scrollEnabled={false}
             pagingEnabled
             showsHorizontalScrollIndicator={false}
           />
@@ -292,7 +176,6 @@ export const Onboarding = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 64,
     flex: 1,
     width,
   },
@@ -337,15 +220,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '80%',
     alignSelf: 'center',
-  },
-  finishButton: {
-    backgroundColor: '#4CAF50',
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-  },
-  finishButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
   },
 });

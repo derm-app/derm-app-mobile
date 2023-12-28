@@ -2,9 +2,9 @@ import { create } from 'zustand';
 import { StoreState, StoreActions } from './types';
 
 const useUserStore = create<StoreState & StoreActions>((set) => ({
-  isUserLoggedIn: true,
-  isTermsAccepted: true,
-  onBoardingCompleted: true,
+  isUserLoggedIn: false,
+  isTermsAccepted: false,
+  onBoardingCompleted: false,
 
   setLoginStatus: (status: boolean) => set({ isUserLoggedIn: status }),
   setTermsStatus: (status: boolean) => set({ isTermsAccepted: status }),
