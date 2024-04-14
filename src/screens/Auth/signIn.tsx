@@ -44,7 +44,7 @@ export const SignIn = () => {
             <View style={{ justifyContent: 'space-between', flex: 1 }}>
               <View style={styles.overlay}>
                 <Logo />
-                <Text style={TextTheme.headingOne}>Giriş Yap</Text>
+                <Text style={TextTheme.headingOneLight}>Giriş Yap</Text>
                 <DCHTextInput
                   placeholder='e-mail'
                   error={false}
