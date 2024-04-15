@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
-  Text,
   FlatList,
   Dimensions,
   TouchableOpacity,
@@ -13,11 +12,9 @@ import {
   Platform,
 } from 'react-native';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '../../components/buttons/Button';
 import { Buttons } from '../../theme/theme';
 import { DCHText } from '../../components/Text';
-import { FadeInUp } from 'react-native-reanimated';
 import { DCHView } from '../../components/Views/DCHView';
 import { useOnboarding } from '../../api/onboarding';
 import { useTheme } from '../../hooks/useTheme';
@@ -45,8 +42,8 @@ export const Onboarding = () => {
         const data = await getOnboardingQuestions();
         setQuestions(data);
       } catch (error) {
-        console.error('Error fetching onboarding questions:', error);
-        // Handle error as needed
+        console.error('Error fetching onboarding questions: ', error);
+        throw error;
       }
     };
 

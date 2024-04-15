@@ -1,7 +1,24 @@
-const isMorning = () => {
-  const date = new Date();
-  const hours = date.getHours();
-  return hours >= 6 && hours < 12;
+const greetings = {
+  morning: 'Günaydın',
+  noon: 'Tünaydın',
+  afternoon: 'İyi akşamlar',
+  evening: 'İyi akşamlar',
+  night: 'İyi geceler',
 };
 
-export { isMorning };
+const getGreeting = () => {
+  const date = new Date();
+  const hours = date.getHours();
+
+  if (hours >= 6 && hours < 12) {
+    return greetings.morning;
+  } else if (hours >= 12 && hours < 18) {
+    return greetings.noon;
+  } else if (hours >= 18 && hours < 22) {
+    return greetings.afternoon;
+  } else {
+    return greetings.night;
+  }
+};
+
+export { getGreeting };

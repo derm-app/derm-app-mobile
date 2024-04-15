@@ -12,7 +12,7 @@ export const WeatherView = () => {
       }}
     >
       <View style={{ maxWidth: '50%' }}>
-        <DCHText style={TextTheme.label}>
+        <DCHText style={TextTheme.labelLight}>
           Oldukça sıcak bir gün. Kuru ciltli bir kişi için, nemlendirici içeren
           bir cilt bakım ürünü kullanarak cildini nemlendirmesi önemlidir. Eğer
           dışarı çıkacaksan, nemlendirici sürmeden önce yüzünü yıkamayı unutma.

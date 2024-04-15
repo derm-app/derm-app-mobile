@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import { ColorPallet } from '../theme/theme';
 import { TabScreens } from './types';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,7 +29,7 @@ export const CustomTabbar = ({
       backgroundColor: ColorPallet.grayscale.darkGrey,
       justifyContent: 'space-between',
       paddingHorizontal: 16,
-      paddingBottom: 32,
+      paddingBottom: Platform.OS === 'ios' ? 32 : 8,
       paddingTop: 8,
       bottom: 0,
       left: 0,

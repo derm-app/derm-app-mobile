@@ -5,6 +5,8 @@ import { theme } from './src/theme/theme';
 import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+
 export default function App() {
   const [loading] = useFonts({
     logo: require('./assets/fonts/Ephesis-Regular.ttf'),

@@ -11,12 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const Tabs = () => {
   const Tab = createBottomTabNavigator<TabStackParamList>();
-  const [isModalVisible, setModalVisible] = useState(false);
   const { navigate } = useNavigation<TabStackParamList>();
-
-  const onPressCameraButton = () => {
-    setModalVisible(true);
-  };
 
   return (
     <View style={{ flex: 1 }}>

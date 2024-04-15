@@ -192,13 +192,13 @@ const FontFamily = {
 
 export const TextTheme: ITextTheme = {
   headingOne: {
-    fontSize: 38,
-    fontFamily: FontFamily.bold,
+    fontSize: 48,
+    fontFamily: FontFamily.medium,
     color: ColorPallet.brand.text,
   },
   headingOneLight: {
-    fontSize: 38,
-    fontFamily: FontFamily.bold,
+    fontSize: 48,
+    fontFamily: FontFamily.medium,
     color: ColorPallet.brand.textSecondary,
   },
   headingTwo: {
